@@ -1,0 +1,117 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: var(--background-image);
+    filter: blur(4px);
+    z-index: -1;
+    transform: scale(var(--background-scale, 1%));
+    transition: all 300ms ease;
+}
+
+.content-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.center {
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
+}
+
+.line-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border: 1px solid red;
+}
+
+.center-line {
+    background-color: black;
+    width: 5px;
+    transform: translateX(-50%);
+    height: 94vh;
+    margin-top: calc(5vh / 2);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.selectors-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 95vh;
+    z-index: 2;
+    margin-top: calc(5vh / 2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selector {
+    background-color: red;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+
+.selector:hover {
+    cursor: pointer;
+    transform: scale(110%);
+    transition: all 300ms ease;
+}
+
+.selector:hover .selector-label {
+    position: absolute;
+    transform: translateX(25px);
+    display: block;
+    white-space: nowrap;
+    background-color: lightgray;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.selector-label {
+    display: none;
+}
+
+.text-wrapper {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.text {
+    color: black;
+    font-size: 2em;
+}
+
+@media screen and (min-width: 1200px) {
+    .content-container {
+        max-width: 1200px;
+        margin: 0 calc((100vw - 1200px) / 2);
+    }
+}
