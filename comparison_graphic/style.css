@@ -1,11 +1,23 @@
-* {
-    padding: 0;
-    margin: 0;
-    scrollbar-width: none;
+:root {
+    --background-image: none;
+    --background-scale: 1%;
+    --font-family: 'Poppins', sans-serif;
+    --primary-color: black;
+    --secondary-color: blue;
+    --active-color: blue;
+    --inactive-color: red;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
 body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
     position: relative;
+    --scrollbar-width: none;
 }
 
 body::before {
@@ -21,167 +33,151 @@ body::before {
     background-image: var(--background-image);
     filter: blur(3px);
     z-index: -1;
-    transform: scale(var(--background-scale, 1%));
+    transform: scale(var(--background-scale));
     transition: all 300ms ease;
 }
 
-.content-container {
-    width: 100%;
+.container {
     height: 100vh;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
 }
 
-.information-grid {
-    width: 100%;
-    height: 99%;
+.grid {
     display: grid;
+    gap: 30px 10px;
+    height: 99%;
+    margin-top: 0.5%;
+    width: 100%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    column-gap: 20px;
-    row-gap: 10px;
-    margin-top: 0.5%;
 }
 
-.grid-cell-container {
-    width: 100%;
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
 }
 
-.grid-cell-content {
-    margin: 5px;
-    width: 98%;
-    height: 98%;
-    border: 3px solid gray;
+.content {
+    align-items: center;
     background-color: rgba(211, 211, 211, 0.5);
+    border: 3px solid gray;
     border-radius: 10px;
-    overflow: scroll;
-    scrollbar-width: none;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
+    height: calc(100% - 10px);
+    justify-content: center;
+    margin: 5px;
+    overflow: auto;
+    scrollbar-width: none;
+    transition: color 300ms ease;
+    width: calc(100% - 10px);
 }
 
-.grid-cell-content.child-active {
+.content--child-active {
     justify-content: center;
 }
 
-.grid-cell-link {
+.link {
+    color: var(--primary-color);
     text-decoration: none;
-    color: black;
-    transition: color 300ms ease;
 }
 
-.grid-cell-link:hover {
-    color: blue;
+.link:hover {
+    color: var(--secondary-color);
     cursor: pointer;
 }
 
-.grid-cell-paragraph {
+.paragraph {
     display: none;
     max-height: 0;
+    max-width: 60%;
+    text-align: center;
     transition: max-height 300ms ease-out;
 }
 
-.grid-cell-paragraph.active {
+.paragraph.active {
     display: block;
-    max-width: 60%;
-    text-align: center;
-}
-
-.grid-cell-paragraph ul {
-    list-style: none;
-    padding: 10px;
 }
 
 .center {
+    height: 100vh;
+    left: 50%;
     position: absolute;
     top: 0;
-    left: 50%;
     transform: translateX(-50%);
-    height: 100vh;
 }
 
 .line-wrapper {
+    height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
     z-index: 1;
 }
 
 .center-line {
-    background-color: black;
-    width: 5px;
-    transform: translateX(-50%);
+    background-color: var(--primary-color);
     height: 95vh;
-    margin-top: calc(5vh / 2);
-    margin-left: auto;
-    margin-right: auto;
+    margin: calc(2.5vh) auto 0;
+    transform: translateX(-50%);
+    width: 5px;
 }
 
 .selectors-wrapper {
-    position: absolute;
-    width: 100%;
-    height: 95vh;
-    z-index: 2;
-    margin-top: calc(5vh / 2);
+    align-items: center;
     display: flex;
     flex-direction: column;
+    height: 95vh;
     justify-content: space-between;
-    align-items: center;
+    margin-top: calc(2.5vh);
+    position: absolute;
+    width: 100%;
+    z-index: 2;
 }
 
 .selector {
-    background-color: red;
+    background-color: var(--inactive-color);
     border-radius: 50%;
-    width: 20px;
     height: 20px;
+    width: 20px;
+    transition: all 300ms ease;
 }
 
 .selector:hover {
     cursor: pointer;
-    transform: scale(110%);
-    transition: all 300ms ease;
+    transform: scale(1.1);
 }
 
 .selector.active {
-    background-color: blue;
+    background-color: var(--active-color);
 }
 
 .selector:hover .selector-label {
+    background-color: lightgray;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    display: block;
+    padding: 5px;
     position: absolute;
     transform: translateX(25px);
-    display: block;
     white-space: nowrap;
-    background-color: lightgray;
-    padding: 5px;
-    border: 2px solid black;
-    border-radius: 5px;
 }
 
 .selector-label {
     display: none;
 }
 
-.text-wrapper {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
 .text {
-    color: black;
-    font-size: 2em;
-}
-
-@media screen and (min-width: 1200px) {
-    .content-container {
-        max-width: 1200px;
-        margin: 0 calc((100vw - 1200px) / 2);
-    }
+    color: var(--primary-color);
+    font-size: 2rem;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
